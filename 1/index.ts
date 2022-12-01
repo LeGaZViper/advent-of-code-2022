@@ -17,8 +17,8 @@ async function start() {
 
     const sortedElves = elves.sort((a, b) => b - a);
 
-    console.log(`The most calories: ${sortedElves[0]}`); //1 - elf with the most calories
-    console.log(`Three elves with the most calories in total: ${sortedElves[0] + sortedElves[1] + sortedElves[2]}`); //2 - 3 elves with the most calories in total
+    console.log(`Top 1 elf with the most calories: ${sortedElves[0]}`); //1
+    console.log(`Top three elves with the most calories in total: ${sortedElves[0] + sortedElves[1] + sortedElves[2]}`); //2
 }
 
 start();
