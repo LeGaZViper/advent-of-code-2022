@@ -30,26 +30,26 @@ async function start() {
     const moves = input.split("\n");
    
 
-    let totalPointsTask1 = 0;
+    let movesByMovesPoints = 0;
     for(const move of moves) {
         const points = movesByMove.get(move);
         if(points) {
-            totalPointsTask1 += points;
+            movesByMovesPoints += points;
             continue;
         }
     }
 
-    let totalPointsTask2 = 0;
+    let movesByOutcomePoints = 0;
     for(const move of moves) {
         const points = movesByOutcome.get(move);
         if(points) {
-            totalPointsTask2 += points;
+            movesByOutcomePoints += points;
             continue;
         }
     }
 
-    console.log(totalPointsTask1); // 1  - total points per strategy by moves
-    console.log(totalPointsTask2); // 2  - total points per strategy by outcome
+    console.log(`Total points per strategy by moves: ${movesByMovesPoints}`);
+    console.log(`Total points per strategy by outcome: ${movesByOutcomePoints}`);
 }
 
 start();

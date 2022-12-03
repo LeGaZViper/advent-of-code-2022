@@ -6,6 +6,7 @@
   "scripts": {
     "start:1": "ts-node 1/index.ts",
     "start:2": "ts-node 2/index.ts",
+    "start:3": "ts-node 3/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
