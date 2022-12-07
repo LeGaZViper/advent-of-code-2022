@@ -21,10 +21,8 @@ async function start() {
 
     const sizes = getDirectorySizes(fileTree, 100000);
 
-    if(Array.isArray(sizes))
-        console.log(sizes.reduce((curr, acc) => acc += curr, 0));
-
-    console.log(findDirectorySizeToDelete(fileTree));
+    console.log(`Sum of directory sizes up to 100000: ${sizes.reduce((curr, acc) => acc += curr, 0)}`);
+    console.log(`Smallest directory size to delete: ${findDirectorySizeToDelete(fileTree)}`);
 }
 
 function cd(dirTraverse: string[], targetDir: string) {
@@ -80,28 +78,30 @@ function addOutputToFileTree(fileTree: any, dirTraverse: string[], output: strin
     return fileTree;
 }
 
-function getDirectorySizes(fileTree: any, limit: number = Infinity, sumArray: number[] = [], root = true) {
-    let sum = 0;
-
-    for(const file in fileTree) {
-        if(Number.isNaN(Number(fileTree[file]))) {
-            const size = getDirectorySizes(fileTree[file], limit, sumArray, false);
-            if(!Array.isArray(size)) {
-                sum += size;
-            }
-            continue;
-        }
-
-        const value = Number(fileTree[file]);
-        sum += value;
-    }
-
-    if(sum <= limit) {
-        sumArray.push(sum);
-    }
+function getDirectorySizes(fileTree: any, limit: number = Infinity) {
+    function getDirectorySizesRecursive(fileTree: any, limit: number, sumArray: number[] = [], root = true) {
+        let sum = 0;
     
-    if(root) return sumArray;
-    return sum;
+        for(const file in fileTree) {
+            if(Number.isNaN(Number(fileTree[file]))) {
+                const size = getDirectorySizesRecursive(fileTree[file], limit, sumArray, false);
+                if(!Array.isArray(size)) {
+                    sum += size;
+                }
+                continue;
+            }
+    
+            const value = Number(fileTree[file]);
+            sum += value;
+        }
+    
+        if(sum <= limit) sumArray.push(sum);
+        if(root) return sumArray;
+        return sum;
+    }
+
+    const sizes = getDirectorySizesRecursive(fileTree, limit);
+    return Array.isArray(sizes) ? sizes : [sizes];
 }
 
 function getUsedSpace(fileTree: any, sum = 0) {
@@ -127,16 +127,13 @@ function findDirectorySizeToDelete(fileTree: any, requiredSpace = 30000000) {
 
     const sizes = getDirectorySizes(fileTree);
     let directorySize = Infinity;
-    if(Array.isArray(sizes)) {
-        for(const size of sizes) {
-            if(spaceNeeded <= size && directorySize > size) {
-                directorySize = size;
-            }
+    for(const size of sizes) {
+        if(spaceNeeded <= size && directorySize > size) {
+            directorySize = size;
         }
     }
 
     return directorySize;
 }
-
 
 start();
