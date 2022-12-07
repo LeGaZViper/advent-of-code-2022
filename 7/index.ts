@@ -15,7 +15,7 @@ async function start() {
             cd(dirTraverse, lines[i].split("$ cd ")[1]);
         } else if (lines[i].includes("$ ls")) {
             const output = ls(i, lines);
-            addOutputToFileTree(fileTree, dirTraverse, output);
+            addLsOutputToFileTree(fileTree, dirTraverse, output);
         }
     }
 
@@ -57,11 +57,9 @@ function ls(currentLine: number, lines: string[]) {
     return output;
 }
 
-function addOutputToFileTree(fileTree: any, dirTraverse: string[], output: string[]): any {
-    if(fileTree === undefined) fileTree = {};
-
+function addLsOutputToFileTree(fileTree: any, dirTraverse: string[], output: string[]): any {
     if(dirTraverse.length > 0) {
-        fileTree[dirTraverse[0]] = addOutputToFileTree(fileTree[dirTraverse[0]], dirTraverse.slice(1), output);
+        fileTree[dirTraverse[0]] = addLsOutputToFileTree(fileTree[dirTraverse[0]], dirTraverse.slice(1), output);
         return fileTree;
     }
 
