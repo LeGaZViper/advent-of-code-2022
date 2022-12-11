@@ -12,6 +12,7 @@
     "start:8": "ts-node 8/index.ts",
     "start:9": "ts-node 9/index.ts",
     "start:10": "ts-node 10/index.ts",
+    "start:11": "ts-node 11/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
