@@ -10,8 +10,8 @@ async function start() {
     const shortestPathStepsOneStart = shortestPath(map);
     const shortestPathStepsMultipleStarts = shortestPath(mapWithMultipleStarts);
 
-    console.log(shortestPathStepsOneStart);
-    console.log(shortestPathStepsMultipleStarts);
+    console.log(`Shortest path steps with one start: ${shortestPathStepsOneStart}`);
+    console.log(`Shortest path steps with multiple starts: ${shortestPathStepsMultipleStarts}`);
 }
 
 //very scuffed Dijkstra
